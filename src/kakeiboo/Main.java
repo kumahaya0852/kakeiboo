@@ -1,6 +1,5 @@
 package kakeiboo;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,11 +9,11 @@ public class Main {
 		//テスト用↓
 		CSVdata data = new CSVdata("data/user.csv");
 		
-		Map<String, String> aaa = new LinkedHashMap<>();
+		/*Map<String, String> aaa = new LinkedHashMap<>();
 		aaa.put("id", "114");
 		aaa.put("name", "tado");
 		aaa.put("age", "24");
-		data.addList(aaa);
+		data.addList(aaa);*/
 		
 		
 		List<Map<String, String>> list = data.findAll();
