@@ -1,28 +1,21 @@
 package kakeiboo;
-
-import java.util.LinkedHashMap;
-import java.util.Map;
-
+import javax.swing.JFrame;
 public class Main {
 
-	public static void main(String[] args) throws Exception {
-		//テスト用↓入力内容date(日付)
-		CSVdata aaa = new CSVdata("data/user.csv");
-
-		Map<String, String> newData = new LinkedHashMap<>();
-		newData.put("date", "2026-05-25");
-		newData.put("amount", "1500");
-		newData.put("memo", "昼食");
-		newData.put("category", "食費");
-
-		aaa.addList(newData);
-
-		// 確認
-		aaa.findAll().forEach(System.out::println);
+	public static void main(String[] args) {
+		JFrame frame = new JFrame("家計簿");
 		
+		UI ui = new UI();
 		
+		frame.add(ui);
 		
-
+		frame.setSize(900,700);
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.setLocationRelativeTo(null);
+		
+		frame.setVisible(true);
 	}
 
 }
