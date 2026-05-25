@@ -69,5 +69,21 @@ public class CSVdata {
 			}
 		}
 	}
+	
+	//条件検索
+	public List<Map<String, String>> findBy(String column, String value) {
+		List<Map<String, String>> result = new ArrayList<>();
+		for(Map<String, String> row : records) {
+			if(value.equals(row.get(column))) {
+				result.add(row);
+			}
+		}
+		return result;
+	}
+	
+	//検索（カテゴリ）
+	public List<Map<String, String>> findByCategory(String category) {
+		return findBy("category", category);
+	}
 
 }
