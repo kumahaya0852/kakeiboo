@@ -3,6 +3,9 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,8 +18,9 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 public class UI extends JPanel{
+	
 
-	public  UI() {
+	public  UI()  throws Exception {
 		
 		CardLayout card = new CardLayout();
 		JPanel root = new JPanel(card);
@@ -128,7 +132,26 @@ public class UI extends JPanel{
                     content
             });
 
-            // 初期化
+            
+            
+            try {
+				CSVdata dataList = new CSVdata("data/user.csv");
+				Map<String, String> newData = new LinkedHashMap<>();	//記録用変数
+				
+				newData.put("date", dateField.getText());
+				newData.put("amount", moneyField.getText());
+				newData.put("memo", contentField.getText());
+				newData.put("category", categoriesbox.getSelectedItem().toString());
+				
+				dataList.addList(newData);
+				
+            } catch (IOException e1) {
+            		System.out.println("保存時エラー");
+				e1.printStackTrace();
+			} 
+            
+            
+         // 初期化
             dateField.setText("");
             moneyField.setText("");
             contentField.setText("");

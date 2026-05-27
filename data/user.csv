@@ -1,2 +1,3 @@
-date,amount,memo,category
-2026-05-25.1500.昼食.食費
+date,category,amount,memo
+...
+2000/01/01.100000.dowaaa.食費

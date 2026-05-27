@@ -1,4 +1,4 @@
-package kakeiboo;
+/*package kakeiboo;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -25,4 +25,4 @@ public class test {
 
 	}
 
-}
+}*/
