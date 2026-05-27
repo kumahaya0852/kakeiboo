@@ -28,6 +28,18 @@ public class UI extends JPanel{
 		JPanel mainPanel = new JPanel(new BorderLayout());
 		String[] columns = {"日付","カテゴリ","金額","内容"};
 		DefaultTableModel model = new DefaultTableModel(columns,0);
+		CSVdata csvData = new CSVdata("data/user.csv");
+		
+		//データ取得
+		for(Map<String,String> row  : csvData.findAll()) {
+			model.addRow(new Object[]{
+					row.get("date"),
+					row.get("category"),
+					row.get("amount"),
+					row.get("memo")
+					
+			});
+		}
 		JTable table = new JTable(model);
 		JScrollPane scroll = new JScrollPane(table);
 		mainPanel.add(scroll,BorderLayout.CENTER);
@@ -97,6 +109,7 @@ public class UI extends JPanel{
 		//データ輸入
 		addButton.addActionListener(e->{card.show(root,"ADD");});
 		backButton.addActionListener(e->{card.show(root,"MAIN");});
+		
 		confirmButton.addActionListener(e -> {
 
             String date = dateField.getText();
@@ -135,7 +148,6 @@ public class UI extends JPanel{
             
             
             try {
-				CSVdata dataList = new CSVdata("data/user.csv");
 				Map<String, String> newData = new LinkedHashMap<>();	//記録用変数
 				
 				newData.put("date", dateField.getText());
@@ -143,7 +155,7 @@ public class UI extends JPanel{
 				newData.put("memo", contentField.getText());
 				newData.put("category", categoriesbox.getSelectedItem().toString());
 				
-				dataList.addList(newData);
+				csvData.addList(newData);
 				
             } catch (IOException e1) {
             		System.out.println("保存時エラー");
