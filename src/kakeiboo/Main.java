@@ -5,7 +5,10 @@ public class Main {
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("家計簿");
 		
-		UI ui = new UI();
+		UI ui;
+		try {
+			ui = new UI();
+		
 		
 		frame.add(ui);
 		
@@ -16,6 +19,10 @@ public class Main {
 		frame.setLocationRelativeTo(null);
 		
 		frame.setVisible(true);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

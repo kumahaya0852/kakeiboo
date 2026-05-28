@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CSVdata {
-	List<Map<String, String>> records = new ArrayList<>();
+	static List<Map<String, String>> records = new ArrayList<>();
 	String filePath;
 	String[] headers; 
 	
@@ -41,7 +41,7 @@ public class CSVdata {
 	}
 	
 	//全取得
-	public List<Map<String, String>> findAll(){ 
+	public static List<Map<String, String>> findAll(){ 
 		return Collections.unmodifiableList(records);
 	}
 	
@@ -58,14 +58,14 @@ public class CSVdata {
 		return removed;
 	}
 	
-	//保存
+	//保存(一応)
 	public void save() throws IOException {
-		if(headers == null) return; //一応
+		if(headers == null) return; 
 		
 		try(PrintWriter pw = new PrintWriter(new FileWriter(filePath))) {
 			pw.println(String.join(",", headers));
 			for(Map<String, String> row : records) {
-				pw.println(String.join(".", row.values()));
+				pw.println(String.join(",", row.values()));
 			}
 		}
 	}
