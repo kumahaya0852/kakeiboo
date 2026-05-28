@@ -51,14 +51,15 @@ public class CSVdata {
 		save();
 	}
 	
-	//削除  idにしてるけどのち変更予定
-	public boolean delete(String id) throws IOException {
-		boolean removed = records.removeIf(r -> id.equals(r.get("id")));
-		if (removed) save();
-		return removed;
+	//削除
+	public boolean delete(int index) throws IOException {
+		if(index < 0 || index >= records.size()) return false;
+		records.remove(index);
+		save();
+		return true;
 	}
 	
-	//保存(一応)
+	//保存
 	public void save() throws IOException {
 		if(headers == null) return; 
 		
@@ -85,5 +86,34 @@ public class CSVdata {
 	public List<Map<String, String>> findByCategory(String category) {
 		return findBy("category", category);
 	}
-
+	
+	//合計金額
+	public int total(int num) {
+		int sum = 0;
+			switch(num) {
+				case 1 -> {
+					for(Map<String, String> row : findAll()) {
+						if("食費".equals(row.get("category"))) {
+							String amount = row.get("amount");
+							sum = sum + Integer.parseInt(amount);
+						}
+					}
+				}
+				case 2 -> {
+					
+				}
+				
+				default -> {
+				for(Map<String, String> row : findAll()) {
+					sum += Integer.parseInt(row.get("amount"));
+				}
+			}
+					
+		} 
+		return sum;
+					
+	}
+				
 }
+
+

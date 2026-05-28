@@ -106,6 +106,13 @@ public class UI extends JPanel{
 		root.add(mainPanel,"MAIN");
 		root.add(addPanel,"ADD");
 		
+		
+		//追加(合計金額)
+        Runnable updateTotal = () -> {
+        	totalLabel.setText("合計 : " + csvData.total(0) + "円");
+        };
+		
+        
 		//データ輸入
 		addButton.addActionListener(e->{card.show(root,"ADD");});
 		backButton.addActionListener(e->{card.show(root,"MAIN");});
@@ -134,6 +141,8 @@ public class UI extends JPanel{
 
                 return;
             }
+            
+          
             
             String content = contentField.getText();
 
@@ -170,6 +179,7 @@ public class UI extends JPanel{
 
             // 記録に戻る
             card.show(root, "MAIN");
+            updateTotal.run();
 
         });
 		
@@ -178,7 +188,7 @@ public class UI extends JPanel{
 		
 			int row = table.getSelectedRow();
 			
-			if(row !=1) {
+			if(row !=-1) {
 				
 				int result =
 						
@@ -190,7 +200,14 @@ public class UI extends JPanel{
 								);
 				if(result == JOptionPane.YES_OPTION) {
 					
+					try {
+						csvData.delete(row);
+					} catch (IOException ex) {
+						JOptionPane.showMessageDialog(null, "削除失敗");
+						return;
+					}
 					model.removeRow(row);
+					updateTotal.run();
 				}
 				}				
 		});
@@ -198,8 +215,15 @@ public class UI extends JPanel{
 
     
         totalButton.addActionListener(e -> {
+        	updateTotal.run();
+        	JOptionPane.showMessageDialog(
+        			null,
+        			totalLabel.getText(),
+        			"合計金額",
+        			JOptionPane.INFORMATION_MESSAGE
+        			);
 
-            int total = 0;
+            /*int total = 0;
 
             for (int i = 0; i < model.getRowCount(); i++) {
 
@@ -219,9 +243,10 @@ public class UI extends JPanel{
                 }
             }
 
-            totalLabel.setText("合計：" + total+"円");
+            totalLabel.setText("合計：" + total+"円");*/
 
         });
+        
 
         setLayout(new BorderLayout());
         add(root, BorderLayout.CENTER);
