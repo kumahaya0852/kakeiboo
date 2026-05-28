@@ -151,9 +151,9 @@ public class UI extends JPanel{
 				Map<String, String> newData = new LinkedHashMap<>();	//記録用変数
 				
 				newData.put("date", dateField.getText());
+				newData.put("category", categoriesbox.getSelectedItem().toString());
 				newData.put("amount", moneyField.getText());
 				newData.put("memo", contentField.getText());
-				newData.put("category", categoriesbox.getSelectedItem().toString());
 				
 				csvData.addList(newData);
 				
