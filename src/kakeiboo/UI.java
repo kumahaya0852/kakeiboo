@@ -29,6 +29,7 @@ public class UI extends JPanel{
 		String[] columns = {"日付","カテゴリ","金額","内容"};
 		DefaultTableModel model = new DefaultTableModel(columns,0);
 		CSVdata csvData = new CSVdata("data/user.csv");
+		search searcher = new search(csvData);
 		
 		//データ取得
 		for(Map<String,String> row  : csvData.findAll()) {
@@ -212,16 +213,73 @@ public class UI extends JPanel{
 				}				
 		});
 		
+		searchButton.addActionListener(e -> {
+		    String[] kensaku = {"食費", "交通費", "娯楽", "生活"};
+		    String selected = (String) JOptionPane.showInputDialog(
+		            null,
+		            "検索するカテゴリを選択してください",
+		            "カテゴリ検索",
+		            JOptionPane.QUESTION_MESSAGE,
+		            null,
+		            kensaku,
+		            kensaku[0]
+		    );
+
+		    if (selected != null) {
+		        String resultText = searcher.searchByCategory(selected);
+		        JOptionPane.showMessageDialog(
+		                null,
+		                resultText,
+		                "検索結果：" + selected,
+		                JOptionPane.INFORMATION_MESSAGE
+		        );
+		    }
+		});
+		
 
     
         totalButton.addActionListener(e -> {
-        	updateTotal.run();
-        	JOptionPane.showMessageDialog(
-        			null,
-        			totalLabel.getText(),
-        			"合計金額",
-        			JOptionPane.INFORMATION_MESSAGE
-        			);
+        String[] totalC = {"全体", "食費", "交通費", "娯楽", "生活"};
+        String select = (String) JOptionPane.showInputDialog(
+        		null,
+        		"合計を表示するカテゴリを選択してください",
+        		"カテゴリ別合計",
+        		JOptionPane.QUESTION_MESSAGE,
+        		null,
+        		totalC,
+        		totalC[0]
+        	);
+        
+        if(select != null) {
+        	int num = switch(select) {
+        	case "食費" -> 1;
+        	case "交通費" -> 2;
+        	case "娯楽" -> 3;
+        	case "生活" -> 4;
+        	default -> 0;
+        	};
+        	int total = csvData.total(num);
+        	
+	        	if(total > 0) {
+	        		
+		        	totalLabel.setText("合計 : " + String.valueOf(total) + "円");
+		        		JOptionPane.showMessageDialog(
+		        					null,
+		        					"【" + select + "】の合計" + total + "円",
+		        					"合計金額",
+		        					JOptionPane.INFORMATION_MESSAGE
+		        					);
+	        				}
+	        	else {
+	        		JOptionPane.showMessageDialog(
+	        				null,
+	        				"【" + select +  "】の記録はありません",
+	        				"合計金額",
+	        				JOptionPane.INFORMATION_MESSAGE
+	        				);
+	        	}
+        	}
+        });
 
             /*int total = 0;
 
@@ -245,10 +303,11 @@ public class UI extends JPanel{
 
             totalLabel.setText("合計：" + total+"円");*/
 
-        });
+      
         
 
         setLayout(new BorderLayout());
         add(root, BorderLayout.CENTER);
+        updateTotal.run();
 }
 }
