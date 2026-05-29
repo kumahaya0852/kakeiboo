@@ -108,7 +108,7 @@ public class UI extends JPanel{
 		root.add(addPanel,"ADD");
 		
 		
-		//追加(合計金額)
+		//追加(合計金額更新用)
         Runnable updateTotal = () -> {
         	totalLabel.setText("合計 : " + csvData.total(0) + "円");
         };
@@ -158,7 +158,7 @@ public class UI extends JPanel{
             
             
             try {
-				Map<String, String> newData = new LinkedHashMap<>();	//記録用変数
+				Map<String, String> newData = new LinkedHashMap<>();	//い　つ　も　の
 				
 				newData.put("date", dateField.getText());
 				newData.put("category", categoriesbox.getSelectedItem().toString());
@@ -189,7 +189,7 @@ public class UI extends JPanel{
 		
 			int row = table.getSelectedRow();
 			
-			if(row !=-1) {
+			if(row !=1) {
 				
 				int result =
 						
@@ -213,6 +213,7 @@ public class UI extends JPanel{
 				}				
 		});
 		
+		//検索ボタン中身
 		searchButton.addActionListener(e -> {
 		    String[] kensaku = {"食費", "交通費", "娯楽", "生活"};
 		    String selected = (String) JOptionPane.showInputDialog(
@@ -237,7 +238,7 @@ public class UI extends JPanel{
 		});
 		
 
-    
+		//合計ボタン中身
         totalButton.addActionListener(e -> {
         String[] totalC = {"全体", "食費", "交通費", "娯楽", "生活"};
         String select = (String) JOptionPane.showInputDialog(
@@ -269,7 +270,7 @@ public class UI extends JPanel{
 		        					"合計金額",
 		        					JOptionPane.INFORMATION_MESSAGE
 		        					);
-	        				}
+	        	}
 	        	else {
 	        		JOptionPane.showMessageDialog(
 	        				null,

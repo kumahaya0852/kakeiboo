@@ -71,11 +71,11 @@ public class CSVdata {
 		}
 	}
 	
-	//条件検索
-	public List<Map<String, String>> findBy(String column, String value) {
+	//条件検索(結局カテゴリしか使ってない)
+	public List<Map<String, String>> findBy(String word, String value) {
 		List<Map<String, String>> result = new ArrayList<>();
 		for(Map<String, String> row : records) {
-			if(value.equals(row.get(column))) {
+			if(value.equals(row.get(word))) {
 				result.add(row);
 			}
 		}
