@@ -100,7 +100,28 @@ public class CSVdata {
 					}
 				}
 				case 2 -> {
-					
+					for(Map<String, String> row : findAll()) {
+						if("交通費".equals(row.get("category"))) {
+							String amount = row.get("amount");
+							sum = sum + Integer.parseInt(amount);
+						}
+					}
+				}
+				case 3 -> {
+					for(Map<String, String> row : findAll()) {
+						if("娯楽".equals(row.get("category"))) {
+							String amount = row.get("amount");
+							sum = sum + Integer.parseInt(amount);
+						}
+					}
+				}
+				case 4 -> {
+					for(Map<String, String> row : findAll()) {
+						if("生活".equals(row.get("category"))) {
+							String amount = row.get("amount");
+							sum = sum + Integer.parseInt(amount);
+						}
+					}
 				}
 				
 				default -> {
